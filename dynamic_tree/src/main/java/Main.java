@@ -39,8 +39,8 @@ public class Main {
 
         System.out.println("MyPacman");
 //        executor.runGameTimed(new POPacMan(), new POCommGhosts(50), true);
-        executor.runGameTimed(new MyPacMan(), new RandomGhosts(), true);
-//        executor.runGameTimed(new MyPacMan_A_star(), new RandomGhosts(), true);
+//        executor.runGameTimed(new MyPacMan(), new RandomGhosts(), true);
+        executor.runGameTimed(new MyPacMan_A_star(), new RandomGhosts(), true);
 
     }
 }
