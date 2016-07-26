@@ -33,6 +33,7 @@ public class Main {
 //        executor.runGameTimed(new MyPacMan(), new RandomGhosts(), true);
 //        executor.runGameTimed(new MyPacMan_A_star(), new RandomGhosts(), true);
         executor.runGameTimed(new Alpha_Beta_proning(), new POCommGhosts(), true);
+//        executor.runGame(new Alpha_Beta_proning(), new POCommGhosts(), true, 1000);
 //        executor.runGameTimed(new Minmax(), new RandomGhosts(), true);
 
 
