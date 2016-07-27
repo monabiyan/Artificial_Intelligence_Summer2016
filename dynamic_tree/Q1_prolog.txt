@@ -1,0 +1,127 @@
+%Q1_a
+
+motorway(63,62). 
+motorway(64,62). 
+motorway(76,62). 
+motorway(66,62). 
+motorway(66,69).
+motorway(63,64). 
+motorway(62,83). 
+motorway(68,66). 
+motorway(63,66).
+motorway(63,64).
+motorway(83,60).
+motorway(68,59).
+motorway(68,53).
+motorway(68,54).
+motorway(54,56).
+motorway(62,54).
+motorway(62,53).
+motorway(62,59).
+motorway(62,60).
+motorway(59,53).
+motorway(56,54).
+motorway(53,54).
+
+
+footpath(59,60).
+footpath(69,76).
+footpath(59,58).
+footpath(59,57).
+footpath(56,58).
+footpath(54,53).
+footpath(53,52).
+footpath(52,59).
+footpath(83,65).
+footpath(65,68).
+
+
+
+
+fconnect(A,B):-footpath(B,A);footpath(A,B);motorway(A,B);motorway(B,A).
+%route(A,B):-fconnect(A,B);fconnect(A,Z),fconnect(Z,B).
+
+connection(X,Y) :- fconnect(X,Y).
+
+
+path_exists(X,Y) :- path(X,Y,_), !.
+
+path(A,B,Path) :-
+       travel(A,B,[A],Q), 
+       reverse(Q,Path).
+
+travel(A,B,P,[B|P]) :- 
+       connection(A,B).
+travel(A,B,Visited,Path) :-
+       connection(A,C),           
+       C \== B,
+       \+member(C,Visited),
+       travel(C,B,[C|Visited],Path).  
+
+       	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+motorconnect(A,B):-motorway(A,B);motorway(B,A).
+
+
+motor_connection(X,Y) :- motorconnect(X,Y).
+
+
+mpath_exists(X,Y) :- mpath(X,Y,_), !.
+
+mpath(A,B,Path) :-
+       mtravel(A,B,[A],Q), 
+       reverse(Q,Path).
+
+mtravel(A,B,P,[B|P]) :- 
+       motor_connection(A,B).
+mtravel(A,B,Visited,Path) :-
+       motor_connection(A,C),           
+       C \== B,
+       \+member(C,Visited),
+       mtravel(C,B,[C|Visited],Path).  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+
+
+
+
+
+
+%Q1_b
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%?- path_exists(63,52).
+%?- path_exists(66,52).
+%?- path_exists(53,59).
+%?- path_exists(63,520).
+%?- path_exists(63,5200).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Q1_c
+
+
+%Can I go with car from Snell engineering Centre (58) to Snell Library (59)?  
+%?- mpath_exists(58,59).
+
+
+
+%%Is there any path (walking and road) that connects Snell engineering Centre (50) to Snell Library (60)?  
+%?- path_exists(50,60).
+
+
+%Can I go with car from Snell engineering Centre (58) to Snell Library (57)?  
+%?- mpath_exists(58,57).
+
+%Is there any path that connects Snell engineering Centre (69) to Snell Library (54)?  
+%?- path_exists(54,69).
+
+%Is there a motorway that connects Snell engineering Centre (66) to Snell Library (60)?  
+%?- mpath_exists(66,60).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
